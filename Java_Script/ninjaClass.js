@@ -1,4 +1,4 @@
-class Ninja{
+export class Ninja{
     constructor(name){
         this.name = name;
         this.health = 100;
