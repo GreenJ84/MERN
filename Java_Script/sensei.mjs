@@ -6,7 +6,7 @@ class Sensei extends Ninja{
         super.health = 200;
         super.speed = 10;
         super.strength = 10;
-        
+
         this.wisdom = 10;
     }
 
@@ -31,3 +31,4 @@ sensei.showStats();
 
 sensei.speakWisdom();
 sensei.showStats();
+console.log(sensei.wisdom);
