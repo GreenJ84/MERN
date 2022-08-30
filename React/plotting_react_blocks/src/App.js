@@ -1,0 +1,24 @@
+import React from 'react';
+import './App.css';
+import Header from './Components/Header';
+import Navigation from './Components/Navigation';
+import Main from './Components/Main';
+import SubContent from './Components/SubContent';
+import Advertisement from './Components/Advertisement';
+
+function App() {
+  return (
+    <div className="App">
+      <Header />
+      <Navigation />
+      <Main>
+        <SubContent />
+        <SubContent />
+        <SubContent />
+        <Advertisement />
+      </Main>
+    </div>
+  );
+}
+
+export default App;
