@@ -60,7 +60,11 @@ export default () => {
         console.log(value.length);
         if ( value.length < 6){
             return "Email must have at least 6 characters";
-        } else { return null; }
+        } else{
+            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
+                return null; 
+            } else{ return "Email must match email format. (i.e. something@something.something).!" }
+        }
     }
 
     const validators = {
