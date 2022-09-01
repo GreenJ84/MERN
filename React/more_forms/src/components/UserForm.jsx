@@ -83,6 +83,7 @@ const UserForm = (props) => {
         if(confirmPassword.length !== 0){
         if(e.target.value.length < 8){
             setConfirmPasswordError("Confirm Password must be 8 characters or longer!");
+        } else{
             if(confirmPassword !== password){
                 setMatchError("Confirm Password must match Password!");
             } else{
@@ -93,7 +94,7 @@ const UserForm = (props) => {
     }
 
     return(
-        <form onSubmit={ (e) => e.preventDefault() }>
+        <form onSubmit={ (e) => {e.preventDefault(); createUser(); }}>
             <div>
                 <label>First Name: </label>
                 <input type="text" onChange={ handleFirstName } value={firstName}/>
