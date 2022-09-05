@@ -68,6 +68,7 @@ const Tabs = () => {
 
     return ( <div>
         { tabs.map((item, i) => <li style={ listStyle } key={ i } onClick={ (e) => [tabChange(e, item), moveMe()] }>{ item.tabName }</li>)}
+        
         <div style={ divStyle }id="myContainer">
         <p id='message' style={ messageStyle } onClick={ (e) => moveMe() } >{ message }</p>
         </div>
