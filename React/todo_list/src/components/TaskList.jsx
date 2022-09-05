@@ -18,12 +18,19 @@ const  completeTaskStyle ={
 }
 
 const RenderTask = () => {
-    const intialList = () => window.localStorage.getItem('taskList') || [];
+    // let intialList = "";
+
+    // React.useEffect (() => {
+    // intialList = localStorage.getItem('taskList');
+    // if (intialList){
+    //     JSON.parse(intialList);
+    // }})
     const [task, setTask] = useState("");
     const [taskList, setTaskList] = useState([]);
+    
 
-    useEffect(() => {
-        window.localStorage.setItem('taskList', taskList);}, [taskList]
+    React.useEffect(() => {
+        localStorage.setItem('taskList', JSON.stringify([...taskList]));}, [taskList]
     );
 
     const createTask = (e) => {
@@ -34,8 +41,6 @@ const RenderTask = () => {
     }
     const deleteTask = (e, idx) => {
         e.preventDefault();
-        console.log(idx);
-        console.log(taskList);
         taskList.splice(idx, 1);
         setTaskList([...taskList]);
     }
@@ -56,12 +61,12 @@ const RenderTask = () => {
         </form>
         { taskList.filter(item => item.completed === false).map((item, idx) => <li key={idx} style={ taskStyle }>
             {item.task} 
-            <input type='checkbox' checked={item.completed} onClick={(e) => completeTask(item)}/>
+            <input type='checkbox' checked={item.completed} onChange={(e) => completeTask(item)}/>
             <button onClick={(e) => deleteTask(e, idx)}>Delete</button>
         </li>)}
         { taskList.filter(item => item.completed === true).map((item, idx) => <li key={idx} style={ completeTaskStyle }>
             {item.task} 
-            <input type='checkbox' checked={item.completed} onClick={(e) => completeTask(item)}/>
+            <input type='checkbox' checked={item.completed} onChange={(e) => completeTask(item)}/>
             <button onClick={(e) => deleteTask(e, idx)}>Delete</button>
         </li>)}
     </div>)
