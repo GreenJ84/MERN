@@ -5,7 +5,7 @@ const port = 8000;
 // req is short for request
 // res is short for response
 app.get("/api", (req, res) => {
-  res.send("Our express api server is now sending this over to the browser");
+  res.send("Hello to those who know!");
 });
 
 app.listen(8000, () =>
