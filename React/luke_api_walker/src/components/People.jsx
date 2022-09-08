@@ -1,18 +1,13 @@
-import React, { useState, useContext } from 'react'
-import { useEffect } from 'react';
+import React, { useState, useContext, useEffect, useNavigate } from 'react'
 import axios from 'axios';
 import MyContext from '../context/MyContext';
-;
 
 
 const People = (props) => {
     const {results} = useContext(MyContext);
     const [person, setPerson] = useState([]);
     const [homeworld, setHomeworld] = useState([]);
-    let [buttonClicked, setButtonClicked] = useState(false);
 
-    console.log(results);
-    let worldApi = "";
     useEffect(() => {
         axios.get(results)
             .then((response) => {
@@ -97,10 +92,7 @@ const People = (props) => {
                     {person.gender}
                 </td>
             </tr>
-        </table>
-        <button onClick={()=>{setButtonClicked(!buttonClicked)}}>Dislay Info</button>
-        <table>
-        <tr>
+            <tr>
                 <th>
                     Homeworld: 
                 </th>

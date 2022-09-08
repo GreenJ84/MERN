@@ -1,26 +1,46 @@
-import React, { useState, useContext } from 'react';
-import MyContext from './context/MyContext';
+import React, { useState, useContext, useEffect, useNavigate } from 'react'
+import axios from 'axios';
+import MyContext from '../context/MyContext';
 
 
 const Planets = (props) => {
-    const {results, setResults} = useContext(MyContext);
-    const [residents, setResidents] = useState("");
+    const {results} = useContext(MyContext);
+    const [planet, setPlanet] = useState([]);
+    const [residents, setResidents] = useState([]);
 
-    for (let i = 0; i < results.residents.length; i++){
-        fetch (results.residents[i])
-            .then( response => response.json)
-            .then( response => setResidents([...residents, response]))
-        }
+
+    useEffect(() => {
+        axios.get(results)
+            .then((response) => {
+                console.log("Getting back response from our API: ", response.data);
+                setPlanet(response.data); 
+            })
+            .catch((err) => {
+                console.log("This is the catch all error: ", err); 
+            });
+    }, [results])
+
+    // useEffect(() => {
+    //     axios.get(planet.residents[0])
+    //         .then((response) => {
+    //             console.log("Getting back response from our 2 API: ", response.data);
+    //             setResidents(response.data); 
+    //         })
+    //         .catch((err) => {
+    //             console.log("This is the catch all error: ", err);
+    //         });
+    // }, [planet.residents])
+
     return (
         <>
-        <h1>{results.name}</h1>
+        <h1>{planet.name}</h1>
         <table>
             <tr>
                 <th>
                     Rotation Period: 
                 </th>
                 <td>
-                    {results.rotation_period}
+                    {planet.rotation_period}
                 </td>
             </tr>
             <tr>
@@ -28,7 +48,7 @@ const Planets = (props) => {
                     Oribital period:
                 </th>
                 <td>
-                    {results.orbital_period}
+                    {planet.orbital_period}
                 </td>
             </tr>
             <tr>
@@ -36,7 +56,7 @@ const Planets = (props) => {
                     Diameter:
                 </th>
                 <td>
-                    {results.diameter}
+                    {planet.diameter}
                 </td>
             </tr>
             <tr>
@@ -44,7 +64,7 @@ const Planets = (props) => {
                     Climate: 
                 </th>
                 <td>
-                    {results.climate}
+                    {planet.climate}
                 </td>
             </tr>
             <tr>
@@ -52,7 +72,7 @@ const Planets = (props) => {
                     Gravity: 
                 </th>
                 <td>
-                    {results.gravity}
+                    {planet.gravity}
                 </td>
             </tr>
             <tr>
@@ -60,7 +80,7 @@ const Planets = (props) => {
                     Terrain: 
                 </th>
                 <td>
-                    {results.terrain}
+                    {planet.terrain}
                 </td>
             </tr>
             <tr>
@@ -68,7 +88,7 @@ const Planets = (props) => {
                     Surface Water:
                 </th>
                 <td>
-                    {results.surface_water}
+                    {planet.surface_water}
                 </td>
             </tr>
             <tr>
@@ -76,7 +96,7 @@ const Planets = (props) => {
                     Population: 
                 </th>
                 <td>
-                    {results.population}
+                    {planet.population}
                 </td>
             </tr>
             <tr>
@@ -88,8 +108,6 @@ const Planets = (props) => {
                 </td>
             </tr>
         </table>
-
-        
         </>
     )
 }
