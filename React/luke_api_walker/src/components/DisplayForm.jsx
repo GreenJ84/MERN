@@ -2,19 +2,63 @@ import React, { useState } from 'react';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import DisplayInfo from './DisplayInfo';
+import Planets from './Planets';
+import People from './People';
+import Films from './Films';
+import Starships from './Starships';
+import Species from './Species';
+import Vehicles from './Vehicles';
 
 
 const Display = () => {
     const [id, setId] = useState("");
     const [search, setSearch] = useState("");
+    const [results, setResults] = useState("");
 
-    const handleRequest = (e, search, id) => {
+    const DisplayInfo = () => {
+
+        if (search === 'planets'){
+            return (
+                <Planets results={results}/>
+            )
+        } else if (search === 'starships' ){
+            return (
+                <Starships results={results}/>
+            )
+        } else if (search === 'vehicles'){
+            return (
+                <Vehicles results={results}/>
+            )
+        } else if (search === 'people'){
+            return (
+                <People results={results}/>
+            )
+        } else if (search === 'films'){
+            return (
+                <Films results={results}/>
+            )
+        } else if (search === 'species'){
+            return (
+                <Species results={results}/>
+            )
+        }
+    
+    } 
+    
+    const handleRequest = (e) => {
         e.preventDefault();
-        DisplayInfo(search, id);
+        fetch('https://swapi.dev/api/'+search+'/'+id)
+            .then(response => response.json())
+            .then(response => setResults(response))
+            .catch(err => {
+                return (
+                    <h1>These aren't the droids you're looking for!</h1>
+                )
+            })
+        DisplayInfo();
     }
 
-    return (<Form onSubmit={(e) => { handleRequest(e, search, id)} }>
+    return (<Form onSubmit={(e) => {e.preventDefault(); handleRequest(e)} }>
         <Row>
         <Col>
         <Form.Label>Search For: </Form.Label>
