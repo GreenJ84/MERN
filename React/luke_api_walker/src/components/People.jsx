@@ -1,26 +1,52 @@
 import React, { useState, useContext } from 'react'
-import MyContext from './context/MyContext';
+import { useEffect } from 'react';
+import axios from 'axios';
+import MyContext from '../context/MyContext';
 ;
 
 
 const People = (props) => {
-    const {results, setResults} = useContext(MyContext);
-    const [homeworld, setHomeworld] = useState(results.homeworld);
+    const {results} = useContext(MyContext);
+    const [person, setPerson] = useState([]);
+    const [homeworld, setHomeworld] = useState([]);
+    let [buttonClicked, setButtonClicked] = useState(false);
 
-    fetch(homeworld)
-        .then(response => response.json)
-        .then(response => setHomeworld(response))
+    console.log(results);
+    let worldApi = "";
+    useEffect(() => {
+        axios.get(results)
+            .then((response) => {
+                console.log("Getting back response from our API: ", response.data);
+                setPerson(response.data); 
+            })
+            .catch((err) => {
+                console.log("This is the catch all error: ", err);
+            });
+    }, [results])
+
+    useEffect(() => {
+        axios.get(person.homeworld)
+            .then((response) => {
+                console.log("Getting back response from our 2 API: ", response.data);
+                setHomeworld(response.data); 
+            })
+            .catch((err) => {
+                console.log("This is the catch all error: ", err);
+            });
+    }, [person.homeworld])
+
+
         
     return (
         <>
-        <h1>{results.name}</h1>
+        <h1>{person.name}</h1>
         <table>
             <tr>
                 <th>
                     Height: 
                 </th>
                 <td>
-                    {results.height} cm
+                    {person.height} cm
                 </td>
             </tr>
             <tr>
@@ -28,7 +54,7 @@ const People = (props) => {
                     Mass: 
                 </th>
                 <td>
-                    {results.mass} kg
+                    {person.mass} kg
                 </td>
             </tr>
             <tr>
@@ -36,7 +62,7 @@ const People = (props) => {
                     Hair Color:
                 </th>
                 <td>
-                    {results.hair_color}
+                    {person.hair_color}
                 </td>
             </tr>
             <tr>
@@ -44,7 +70,7 @@ const People = (props) => {
                     Skin Color: 
                 </th>
                 <td>
-                    {results.skin_color}
+                    {person.skin_color}
                 </td>
             </tr>
             <tr>
@@ -52,7 +78,7 @@ const People = (props) => {
                     Eye Color: 
                 </th>
                 <td>
-                    {results.eye_color}
+                    {person.eye_color}
                 </td>
             </tr>
             <tr>
@@ -60,7 +86,7 @@ const People = (props) => {
                     Birth Year: 
                 </th>
                 <td>
-                    {results.birth_year}
+                    {person.birth_year}
                 </td>
             </tr>
             <tr>
@@ -68,12 +94,15 @@ const People = (props) => {
                     Gender: 
                 </th>
                 <td>
-                    {results.gender}
+                    {person.gender}
                 </td>
             </tr>
-            <tr>
+        </table>
+        <button onClick={()=>{setButtonClicked(!buttonClicked)}}>Dislay Info</button>
+        <table>
+        <tr>
                 <th>
-
+                    Homeworld: 
                 </th>
                 <td>
                     {homeworld.name} (Population: {homeworld.population})

@@ -1,13 +1,14 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
+import MyContext from '../context/MyContext';
 
 const initialState = {
         id: '',
         search: '',
-        results: {}
+        apiData: {}
     };
 
     function reducer(state, action) {
@@ -18,63 +19,54 @@ const initialState = {
     }
 
 const Display = () => {
+    const {results, setResults} = useContext(MyContext);
     const [state, dispatch] = useReducer(reducer, initialState);
     const nav = useNavigate();
 
-
     const handleRequest = (e) => {
         e.preventDefault();
-        fetch('https://swapi.dev/api/'+state.search+'/'+state.id)
-            
-            .then(response => {return response.json(); })
-            .then(response => { dispatch({type: 'results', payload: response.results})})
-            .catch(err => {
-                return (
-                    <h1>These aren't the droids you're looking for!</h1>
-                )
-            }) 
-            console.log(state.results);
+        setResults('https://swapi.dev/api/'+state.search+'/'+state.id)
+        redirect();
+    }
+
+const redirect = () => {
         if (state.search === 'planets'){
-            nav("/planets");
+            nav("/planets/"+state.id);
         } else if (state.search === 'starships' ){
-            nav("/starships");
+            nav("/starships/"+state.id);
         } else if (state.search === 'vehicles'){
-            nav("/vehicles");
+            nav("/vehicles/"+state.id);
         } else if (state.search === 'people'){
-            nav("/people");
+            nav("/people/"+state.id);
         } else if (state.search === 'films'){
-            nav("/films");
+            nav("/films/"+state.id);
         } else if (state.search === 'species'){
-            nav("/species");
+            nav("/species/"+state.id);
         }
     }
 
 //========Changing the ID State =======
-//! Not updateing auto (Where do I mutate?)
     const handleId = (e) => {
         const { name, value } = e.target;
         dispatch({
             type: name,
             payload: value
         });
-        console.log(state.id);
     }
 
 //========Changing the Search State =======
-//! Not updateing auto (Where do I mutate?)
     const handleSearch = (e) => {
         const { name, value } = e.target;
         dispatch({
             type: name,
             payload: value
         });
-        console.log(state.search);
     }
 
     return (<Form onSubmit={(e) => {e.preventDefault(); handleRequest(e)} }>
         <Row>
         <Col>
-        <Form.Label>Search For: </Form.Label>
+        <Form.Label>Search For: {state.search} </Form.Label>
         <Form.Select onChange={(e) => handleSearch(e) } name="search" value={ state.search }placeholder="Select Person or Planet">
             <option>Open this select menu</option>
             <option value="planets">Planet</option>
@@ -86,13 +78,14 @@ const Display = () => {
         </Form.Select>
         </Col>
         <Col>
-            <Form.Label>ID: </Form.Label>
+            <Form.Label>ID: { state.id }</Form.Label>
             <Form.Control onChange={(e) =>  handleId(e) } name="id" value={ state.id } placeholder="ID number" type="number" min='0' required/>
         </Col>
             <Form.Control value="Submit" type="submit"/>
         <Col>
         </Col>
         </Row>
+        <p> {JSON.stringify(results.name)} </p>
         
     </Form>)
 } 
