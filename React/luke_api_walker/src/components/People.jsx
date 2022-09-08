@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect, useNavigate } from 'react'
 import axios from 'axios';
 import MyContext from '../context/MyContext';
+import { Link } from 'react-router-dom';
 
 
 const People = (props) => {
@@ -34,6 +35,7 @@ const People = (props) => {
         
     return (
         <>
+        <Link to={'/'}> Go back </Link>
         <h1>{person.name}</h1>
         <table>
             <tr>
