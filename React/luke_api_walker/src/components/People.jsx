@@ -1,7 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import MyContext from './context/MyContext';
+;
+
 
 const People = (props) => {
-    const results = props.results;
+    const {results, setResults} = useContext(MyContext);
     const [homeworld, setHomeworld] = useState(results.homeworld);
 
     fetch(homeworld)

@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react';
+import MyContext from './context/MyContext';
 
 
 const Planets = (props) => {
-    const results = props.results;
+    const {results, setResults} = useContext(MyContext);
     const [residents, setResidents] = useState("");
 
     for (let i = 0; i < results.residents.length; i++){
