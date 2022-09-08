@@ -7,8 +7,9 @@ import Films from './components/Films';
 import Starships from './components/Starships';
 import Species from './components/Species';
 import Vehicles from './components/Vehicles';
-import { Routes, Route, Link } from 'react-router-dom';
-import MyContext from './components/context/MyContext';
+import { Routes, Route} from 'react-router-dom';
+import MyContext from './context/MyContext';
+import ErrorPage from './components/ErrorPage'
 
 function App() {
   const [results, setResults] = useState({});
@@ -17,15 +18,17 @@ function App() {
   return (
     <div className="App">
       <h1>Luke Skywalker API</h1>
+      <hr/>
       <MyContext.Provider value={{results, setResults}}>
           <Routes>
             <Route path="/" element={<Display/>}/>
-            <Route path="/planets" element={<Planets/>}/>
-            <Route path="/people" element={<People/>}/>
-            <Route path="/films" element={<Films/>}/>
-            <Route path="/species" element={<Species/>}/>
-            <Route path="/vehicles" element={<Vehicles/>}/>
-            <Route path="/starships" element={<Starships/>}/>
+            <Route path="/planets/:id" element={<Planets/>}/>
+            <Route path="/people/:id" element={<People/>}/>
+            <Route path="/films/:id" element={<Films/>}/>
+            <Route path="/species/:id" element={<Species/>}/>
+            <Route path="/vehicles/:id" element={<Vehicles/>}/>
+            <Route path="/starships/:id" element={<Starships/>}/>
+            <Route path="/errors" element={<ErrorPage />}/>
           </Routes>
       </MyContext.Provider>
     </div>
