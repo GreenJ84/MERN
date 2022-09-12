@@ -17,5 +17,4 @@ const ProductSchema = new mongoose.Schema({
         min: [8, "You really cant describe a product with less than 8 characters...."]
     }
 });
-const Product = mongoose.model("Product", ProductSchema);
-export default Product;
+module.exports.Product = mongoose.model("Product", ProductSchema);

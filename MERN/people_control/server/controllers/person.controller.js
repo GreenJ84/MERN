@@ -23,5 +23,5 @@ module.exports.findAllpeople = (req, res) => {
         .then((people) => res.json({
             results: people
         }))
-        .catch(err => res.json("something is wrong my friend", err))
+        .catch(err => res.json({message: "something is wrong my friend", error: err}))
 }
