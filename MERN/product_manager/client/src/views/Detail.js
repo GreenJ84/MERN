@@ -1,6 +1,7 @@
 import React, { useEffect, useState} from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+
 
 const Detail = (props) => {
     const [product, setProduct] = useState({});
@@ -17,6 +18,9 @@ const Detail = (props) => {
             <p>Title: {product.title}</p>
             <p>Price: {product.price}</p>
             <p>Description: {product.description}</p>
+            <Link to={"/product/update/"+id}>
+    Edit
+</Link>
         </div>
     )
 }

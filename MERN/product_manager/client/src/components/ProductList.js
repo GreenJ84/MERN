@@ -1,15 +1,32 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const ProductList = (props) => {
-    const nav = useNavigate();
+    const { removeFromDom } = props;
     
+    const deleteProduct = (productId) => {
+        axios.delete('http://localhost:8000/api/products/delete/' + productId)
+            .then(res => {
+                removeFromDom(productId)
+            })
+            .catch(err => console.error(err));
+    }
+
     return (
         <div>
             <h1>All Products: </h1>
-            {props.products.map( (product, idx) => 
-                <p onClick={e => {e.preventDefault(); nav(`/product/${product._id}`); }} key={idx}>{product.title} </p>
-            )}
+            {props.products.map( (product, idx) => { 
+                return <p key={idx}> 
+                    <Link to={"/product/"+product._id}>
+                        {product.title}
+                    </Link> 
+                    |
+                    <button onClick={(e)=>{deleteProduct(product._id)}}>
+                        Delete
+                    </button>
+                </p>
+            })}
         </div>
     )
 };
