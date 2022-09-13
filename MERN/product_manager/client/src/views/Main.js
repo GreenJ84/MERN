@@ -16,9 +16,15 @@ const Main = () => {
     const removeFromDom = productId => {
         setProduct(product.filter(product => product._id !== productId));
     }
+
+    const createProduct = thisProduct => {
+        axios.post('http://localhost:8000/api/products/new', thisProduct)
+            .then(res => setProduct([...product, res.data.newProduct]))
+            .catch(err => console.log("Errors creating product", err))
+    }
     return (
         <div>
-            <ProductForm />
+            <ProductForm onSubmit={createProduct} title1='' price1='' description1=''/>
             <hr/>
             {loaded && <ProductList products={product} removeFromDom={removeFromDom} />}
         </div>

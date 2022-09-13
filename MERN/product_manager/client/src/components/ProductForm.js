@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
-const ProductForm = () => {
-    const [title, setTitle] = useState("");
-    const [price, setPrice] = useState(0);
-    const [description, setDescription] = useState("");
+
+const ProductForm = (props) => {
+    const { title1, price1, description1, onSubmit} = props;
+    const [title, setTitle] = useState(title1);
+    const [price, setPrice] = useState(price1);
+    const [description, setDescription] = useState(description1);
 
     const onSubmitHandler = e => {
         e.preventDefault();
-        console.log('Submitting...');
-        console.log(title, price, description);
-        axios.post('http://localhost:8000/api/products/new', {
-            title,
-            price,
-            description
-        })
-            .then(res => console.log(res))
-            .catch(err => console.log("Errors creati person", err))
+        onSubmit({title, price, description})
+        
+        setTitle('');
+        setPrice(0);
+        setDescription('');
+        
+
     }
 
-    return (
-        <form onSubmit={ onSubmitHandler }>
+    return (<div>
+        <form onSubmit={ onSubmitHandler 
+        }>
         <p>
             <label>Product Title: </label><br/>
             <input type='text' onChange={e => setTitle(e.target.value)} value={title} />
@@ -33,8 +33,9 @@ const ProductForm = () => {
             <label>Description: </label><br/>
             <input type='text' onChange={(e) => setDescription(e.target.value)} value={description} />
         </p>
-            <input type='submit' value='Create Product' />
+            <input type='submit' value='Submit' />
         </form>
+        </div>
     )
 }
 export default ProductForm;
