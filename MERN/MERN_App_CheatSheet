@@ -1,0 +1,45 @@
+- Set-Up
+    + Create project folder (CD inside)
+        # npm init -y  -  -> { creating the package.json file }
+        # npm i cors express mongoose -  -> { installing dependancies }
+    + Create Server folder (CD inside)
+    + Create config, controllers, models, routes folders (CD out)
+
+        - config
+            * require mongoose
+            * set db
+            * mongoose.connect -> mongodb://localhost/{db}
+                # useNewUrlParser: true
+                # useUnifiedTopology: true
+
+        - Model
+            * require mongoose
+            * create new mongoose.Schema 
+                # object of data w/ validations
+                # timestamps
+        * module.exports - mongoose.model
+
+        - server.js
+            * require express
+            * require cors
+            * create app -> express
+            * set port
+            * app use - -> # cors
+                    # express.json())
+                    # express.urlencoded({ extended: true }
+            * require config and routes
+            * listen to port
+
+        - controller 
+            * require model
+            * module.exports each mongoose query method
+
+        - routes 
+            * require controller
+            * module.exports -> app 
+                # add each app. routes for each database query created
+
+    + npx create-react-app client (CD inside)
+        # npm i axios react-router-dom
+        - create components and views folders
+        - design and implement compoinents based on needs
