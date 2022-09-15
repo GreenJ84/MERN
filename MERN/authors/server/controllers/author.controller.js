@@ -6,28 +6,28 @@ module.exports.index = (req, res) => {
 module.exports.createNew = (req, res) => {
     Author.create(req.body)
         .then((author) => res.json(author))
-        .catch(err => res.json({ message: 'There has been a create controller error', err,
+        .catch(err => res.status(400).json({ message: 'There has been a create controller error', err,
         error: err}))
 }
 
 module.exports.findAll = (req, res) => {
     Author.find()
     .then(authors => res.json(authors))
-    .catch(err => res.json({message: "There has been a findAll controller error",
+    .catch(err => res.status(400).json({message: "There has been a findAll controller error",
     error: err}))
 }
 
 module.exports.findOne = (req, res) => {
     Author.findOne({_id: req.params.id})
     .then(author => res.json(author))
-    .catch(err => res.json({message: 'There has been a findOne controller error',
+    .catch(err => res.status(400).json({message: 'There has been a findOne controller error',
     error: err}))
 }
 
 module.exports.update = (req, res) => {
     Author.findOneAndUpdate({_id: req.params.id}, req.body, {new: true, runValidators: true})
     .then(author => res.json(author))
-    .catch(err => res.json({message: 'There has been a findOneAndUpdate controller error',
+    .catch(err => res.status(400).json({message: 'There has been a findOneAndUpdate controller error',
     error: err}))
 }
 

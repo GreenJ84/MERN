@@ -4,7 +4,7 @@ const AuthorSchema = new mongoose.Schema({
     author_name: {
         type: String,
         required: [true, "The Author must have a name!"],
-        min: [3, "The Author's name must be at least 3 Characters long!"]
+        minlength: [3, "The Author's name must be at least 3 Characters long!"]
     }
 }, {timestamps: true});
 module.exports.Author = mongoose.model('Author', AuthorSchema);
