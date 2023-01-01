@@ -24,6 +24,9 @@ JavaScript Stacks Builder:
 - Mocha
 - Jest
 - React Testing Library
+- Snyk.io
+- Burb
+- Hardhat
 
 ### Security
 - HelmetJS
