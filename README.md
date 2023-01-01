@@ -19,6 +19,12 @@ JavaScript Stacks Builder:
 - RESTapi
 - GraphQL
 
+### Testing
+- Chai
+- Mocha
+- Jest
+- React Testing Library
+
 ### Security
 - HelmetJS
 - CryptoJS
