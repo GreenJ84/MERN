@@ -9,6 +9,8 @@ JavaScript Stacks Builder:
 - ReactJS -> NextJS
 - Angular/AngularJS
 - VueJS
+- Svelte
+- NuxtJS
 - More to find
 
 ### Back End
@@ -19,13 +21,24 @@ JavaScript Stacks Builder:
 - RESTapi
 - GraphQL
 
+### Security
+- Owasp
+- Owasp NodeGoat
+- HelmetJS
+
 ### Testing
 - Chai
 - Mocha
 - Jest
 - React Testing Library
+- CucumberJS
+- WebDriverIO
+- Selenium
+- Applitools
+
+### Security Testing
 - Snyk.io
-- Burb
+- BurpSuite
 - Hardhat
 
 ### Security
